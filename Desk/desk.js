@@ -31,11 +31,27 @@ function gotResult(results, error) {
     else {
         console.log(results);
         objects = results;
-        objects[0].label;
-        objects[0].width;
     }
 }
 
 function draw() {
     image(img, 0, 0, 640, 420);
+
+    if(status != "") {
+        r = random(255);
+        g = random(255);
+        b = random(255);
+        for(i = 0; i < objects.length; i++) {
+            document.getElementById("status").innerHTML = "STATUS : Objects Detected";
+            document.getElementById("number_of_objects").innerHTML = objects.length + "objects(s) detected."; 
+            console.log("DRAWING");
+
+            fill(r, g, b);
+            percent = floor(objects[i].confidence * 100);
+            text(objects[i].label + " " + percent + "%", objects[i].x + 15, objects[i].y + 15);
+            noFill();
+            stroke(r, g, b);
+            rect(objects[i].x, objects[i].y, objects[i].width, objects[i].height);
+        }
+    }
 }
